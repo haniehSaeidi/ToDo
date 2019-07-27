@@ -1,34 +1,7 @@
 <template>
     <div>
-        <div class="task_div">
-            <div class="header">
-                <h3>To Do </h3>
-            </div>
-            <div class="text_feild_div" :key="indexOfEdited">
-                <v-flex xs12 sm12 md12 v-if="!isEdited">
-                    <v-text-field label="Name" outline v-model="newTask" ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12 md12 v-else>
-                    <v-text-field label="Name" outline v-model="newTask" ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12 md12>
-                    <v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent lazy full-width width="290px">
-                        <template v-slot:activator="{ on }">
-                            <v-text-field v-model="date" label="Date" prepend-icon="event" readonly v-on="on">
-                            </v-text-field>
-                        </template>
-                        <v-date-picker v-model="date" scrollable>
-                            <v-spacer></v-spacer>
-                            <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-                            <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
-                        </v-date-picker>
-                    </v-dialog>
-                </v-flex>
-                <v-btn color="primary" @click="addTask" v-if="!isEdited"> <v-icon dark>add</v-icon>ADD</v-btn>
-                <v-btn color="primary" type="submit" @click="update(indexOfEdited)" v-else>Save</v-btn>
-            </div>
-        </div>
-         
+        <Add></Add>
+
         <div class="task_div header">
             <h3>To Do List </h3>
         </div>
@@ -43,13 +16,13 @@
                 </v-flex>
             </v-layout>
         </div>
-        <div class="list_div" v-if="taskList.length < 1">
+        <!-- <div class="list_div" v-if="taskList.length < 1">
             <v-layout row wrap>
                 <v-flex text-center pt-10 md12>
                     <span> {{ nodata }} </span>
                 </v-flex>
             </v-layout>
-        </div>
+        </div> -->
         <div class="list_div" v-for="(todo, index) in filterTodo" :key="index" :todo="todo">
             <div>
                 <v-layout row wrap>
@@ -78,57 +51,32 @@
 </template>
 <script>
 import { constants } from 'crypto';
-
-const STORAGE_TODO = 'todo-storage';
-const STORAGE_DATE = 'date-storage';
-const STORAGE_DONE = 'done-storage';
+import Add from '@/components/Add.vue'
+import {taskList, STORAGE_TODO, STORAGE_DATE, STORAGE_DONE} from '../main.js'
 
 export default {
     props: ['todo'],
+    components: {
+		Add: Add
+	},
     data(){
         return {
-            taskList: [],
-            task: {
-                title: '',
-                date: '',
-                done: ''
-            },
-            indexOfEdited: '',
-            date: '',
-            modal: false,
-            newTask: '',
             nodata: 'No To Do',
             editedTodo: null,
-            isEdited: false,
             search: ''
         }
     },
     mounted () {
         const todos = JSON.parse(localStorage.getItem(STORAGE_TODO) || '[]');
-        this.taskList = todos
+        window.taskList = todos
         // localStorage.clear()
+        console.log(window.taskList)
     },
     methods: {
-        addTask() {
-            if(this.newTask && this.date) {
-                this.task = {
-                    title: this.newTask,
-                    date: this.date,
-                    done: false
-                }
-                this.taskList.push(this.task)
-                this.newTask = "";
-                this.date = "";
-            } else {
-                this.$toastr.error('Please fill all the fields ...', 'Error');
-            }
-            
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.taskList))
-        },
         removeTask(todo, index) {
-            this.taskList.splice(this.taskList.indexOf(todo), 1)
+            taskList.splice(taskList.indexOf(todo), 1)
             
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.taskList))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
         },
         editTodo(todo, index) {
             this.isEdited = true;
@@ -136,42 +84,34 @@ export default {
             this.date = todo.date;
             this.indexOfEdited = index;
             
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.taskList))
-        },
-        update(index) {
-            this.isEdited = false;
-            this.taskList[this.indexOfEdited].title = this.newTask;
-            this.taskList[this.indexOfEdited].date = this.date;
-            this.newTask = "";
-            this.date = "";
-            
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.taskList))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
         },
         completeTask() {
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.taskList))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
         },
 
         clearCompleted() {
             var a = []
-            return this.taskList.filter((todo) => {
+            return taskList.filter((todo) => {
                 if(todo.done === false) {
                     a.push(todo);
                     console.log(a)
                 }
-                this.taskList = a;
-                localStorage.setItem(STORAGE_TODO, JSON.stringify(this.taskList))
+                taskList = a;
+                localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
             })
             
         },
         clearAll() {
-            this.taskList = []
+            taskList = []
         }
     },
     computed: {
         filterTodo() {
-            return this.taskList.filter((todo) => {
-                return todo.title.match(this.search);
-            })
+            console.log(window.taskList)
+            // return window.taskList.filter((todo) => {
+            //     return todo.title.match(this.search);
+            // })
         }
     }
 }
