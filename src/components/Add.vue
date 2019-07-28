@@ -36,6 +36,13 @@ import {taskList, STORAGE_TODO, STORAGE_DATE, STORAGE_DONE} from '../main.js'
 
 export default {
     name: 'Add',
+    props: {
+        newTask: String,
+        date: String,
+        isEdited: Boolean,
+        indexOfEdited: String
+        // ['newTask', 'date', 'isEdited', 'indexOfEdited']
+        },
     data() {
         return {
             task: {
@@ -43,11 +50,7 @@ export default {
                 date: '',
                 done: ''
             },
-            indexOfEdited: '',
-            isEdited: false,
-            newTask: '',
-            modal: false,
-            date: '',
+            modal: false
         }
     },
     methods: {
@@ -58,23 +61,24 @@ export default {
                     date: this.date,
                     done: false
                 }
-                taskList.push(this.task)
-                this.newTask = "";
-                this.date = "";
+                window['taskList'].push(this.task)
+                // this.newTask = "";
+                // this.date = "";
             } else {
                 this.$toastr.error('Please fill all the fields ...', 'Error');
             }
+
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(window['taskList']))
             
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
         },
         update(index) {
             this.isEdited = false;
-            taskList[this.indexOfEdited].title = this.newTask;
-            taskList[this.indexOfEdited].date = this.date;
+            window['taskList'][this.indexOfEdited].title = this.newTask;
+            window['taskList'][this.indexOfEdited].date = this.date;
             this.newTask = "";
             this.date = "";
             
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(window['taskList']))
         },
     },
 }

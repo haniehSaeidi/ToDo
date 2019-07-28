@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Add></Add>
+        <Add :newTask="newTask"></Add>
 
         <div class="task_div header">
             <h3>To Do List </h3>
@@ -16,13 +16,13 @@
                 </v-flex>
             </v-layout>
         </div>
-        <!-- <div class="list_div" v-if="taskList.length < 1">
+        <div class="list_div" v-if="test.length < 1">
             <v-layout row wrap>
                 <v-flex text-center pt-10 md12>
                     <span> {{ nodata }} </span>
                 </v-flex>
             </v-layout>
-        </div> -->
+        </div>
         <div class="list_div" v-for="(todo, index) in filterTodo" :key="index" :todo="todo">
             <div>
                 <v-layout row wrap>
@@ -63,20 +63,24 @@ export default {
         return {
             nodata: 'No To Do',
             editedTodo: null,
-            search: ''
+            search: '',
+            test: [],
+            newTask: '',
+            date: '',
+            indexOfEdited: '',
+            isEdited: false
         }
     },
     mounted () {
         const todos = JSON.parse(localStorage.getItem(STORAGE_TODO) || '[]');
         window.taskList = todos
-        // localStorage.clear()
-        console.log(window.taskList)
+        this.test = window['taskList']
     },
     methods: {
         removeTask(todo, index) {
-            taskList.splice(taskList.indexOf(todo), 1)
+            window['taskList'].splice(window['taskList'].indexOf(todo), 1)
             
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(window['taskList']))
         },
         editTodo(todo, index) {
             this.isEdited = true;
@@ -84,21 +88,21 @@ export default {
             this.date = todo.date;
             this.indexOfEdited = index;
             
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(window['taskList']))
         },
         completeTask() {
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(window['taskList']))
         },
 
         clearCompleted() {
-            var a = []
-            return taskList.filter((todo) => {
+            var dontCompleted = []
+            return this.test.filter((todo) => {
                 if(todo.done === false) {
-                    a.push(todo);
-                    console.log(a)
+                    dontCompleted.push(todo);
                 }
-                taskList = a;
-                localStorage.setItem(STORAGE_TODO, JSON.stringify(taskList))
+                console.log(dontCompleted)
+                this.test = dontCompleted;
+                localStorage.setItem(STORAGE_TODO, JSON.stringify(window['taskList']))
             })
             
         },
@@ -108,10 +112,9 @@ export default {
     },
     computed: {
         filterTodo() {
-            console.log(window.taskList)
-            // return window.taskList.filter((todo) => {
-            //     return todo.title.match(this.search);
-            // })
+            return this.test.filter((todo) => {
+                return todo.title.match(this.search);
+            })
         }
     }
 }
