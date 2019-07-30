@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
-import Test from './components/Test.vue'
-import Add from './components/Add.vue'
+// import Test from './components/Test.vue'
+// import Add from './components/Add.vue'
+// import Delete from './components/Delete.vue'
 import store from './store'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import VueLocalStorage from 'vue-localstorage'
@@ -15,6 +16,8 @@ export const STORAGE_DATE = 'date-storage';
 export const STORAGE_DONE = 'done-storage';
 
 window.toastr = require('toastr')
+
+export const eventBus = new Vue();
  
 Vue.use(VueToastr2)
 
