@@ -3,55 +3,51 @@
     <Add @newTask="createnew" :indexOfUpdate="indexOfEdit"></Add>
 
     <div class="task_div header">
-      <h3>To Do List</h3>
+      	<h3>To Do List</h3>
     </div>
     <div class="task_div search_div">
       <v-layout row wrap>
-        <v-flex xs12 sm12 md6>
-          <v-text-field outline v-model="search" placeholder="Search Todo"></v-text-field>
-        </v-flex>
-        <v-flex xs12 sm12 md6 mt-10>
-          <v-btn color="orange" @click="clearCompleted" dark>
-            <v-icon>done</v-icon>Clear done
-          </v-btn>
-          <v-btn color="red" @click="clearAll" dark>
-            <v-icon>delete</v-icon>Clear All
-          </v-btn>
-        </v-flex>
+			<v-flex xs12 sm12 md6>
+				<v-text-field class="search_input" outline v-model="search" placeholder="Search Todo"></v-text-field>
+			</v-flex>
+			<v-flex xs12 sm12 md6 mt-10>
+				<v-btn color="orange" class="clear_btn" @click="clearCompleted" dark>
+					<v-icon>done</v-icon>Clear done
+				</v-btn>
+				<v-btn color="red" class="clear_btn" @click="clearAll" dark>
+					<v-icon>delete</v-icon>Clear All
+				</v-btn>
+			</v-flex>
       </v-layout>
     </div>
     <div class="list_div" v-if="test.length < 1">
-      <v-layout row wrap>
-        <v-flex text-center pt-10 md12>
-          <span>{{ nodata }}</span>
-        </v-flex>
-      </v-layout>
+		<v-layout row wrap>
+			<v-flex text-center pt-10 md12>
+				<span>{{ nodata }}</span>
+			</v-flex>
+		</v-layout>
     </div>
     <div class="list_div" v-for="(todo, index) in filterTodo" :key="index" :todo="todo">
-      <div>
-        <v-layout row wrap>
-          <v-flex pt-10 md5>
-            <v-checkbox
-              :label="todo.title"
-              v-model="todo.done"
-              :class="{ completed: todo.done }"
-              @change="completeTask()"
-              color="red"
-            ></v-checkbox>
-          </v-flex>
-          <v-flex pt-10 md4 :class="{ completed: todo.done }">{{ todo.date }}</v-flex>
-          <v-flex md3 text-right>
-              <Edit :index="index" @indexOfEdit="updateIndex(index)" :indexxx="indexOfEdit" :todoEdit="todo"></Edit>
-            <!-- <v-btn outline flat icon color="purple" @click="editTodo(todo, index)">
-              <v-icon>edit</v-icon>
-            </v-btn> -->
-            <Delete :indexOfremove="index"></Delete>
-            <!-- <v-btn outline flat icon color="red" @click="removeTask(todo, index)">
-              <v-icon>delete</v-icon>
-            </v-btn> -->
-          </v-flex>
-        </v-layout>
-      </div>
+		<div>
+			<v-layout row wrap>
+				<v-flex pt-10 md6>
+					<v-checkbox
+					:label="todo.title"
+					v-model="todo.done"
+					:class="{ completed: todo.done }"
+					@change="completeTask()"
+					color="red"
+					></v-checkbox>
+				</v-flex>
+				<v-flex pt-10 md4 :class="{ completed: todo.done }">{{ todo.date }}</v-flex>
+				<v-flex md1 text-right>
+					<Edit :index="index" @indexOfEdit="updateIndex(index)" :indexxx="indexOfEdit" :todoEdit="todo"></Edit>
+				</v-flex>
+				<v-flex md1 text-right>
+					<Delete :indexOfremove="index"></Delete>
+				</v-flex>
+			</v-layout>
+		</div>
     </div>
   </div>
 </template>
@@ -120,8 +116,8 @@ export default {
 
 <style>
 .task_div {
-  border: 1px solid#80CBC4;
-  background: #e0f2f1;
+  border: 2px solid#80CBC4;
+  /* background: #e0f2f1; */
   width: 70%;
   margin: auto;
   margin-top: 20px;
@@ -143,8 +139,8 @@ export default {
 }
 
 .list_div {
-  border: 1px solid#80CBC4;
-  background: #e0f2f1;
+  border: 2px solid#80CBC4;
+  /* background: #e0f2f1; */
   width: 70%;
   margin: auto;
   margin-top: 5px;
@@ -193,7 +189,7 @@ export default {
 }
 
 .search_div {
-  background: #4db6ac;
+  background: #e0f2f1 !important;
   height: 50px;
   border-bottom: 1px solid #73ccc4;
   color: white;
@@ -210,6 +206,18 @@ export default {
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.search_input {
+	width: 300px;
+    height: 65px;
+    margin-top: 5px !important;
+    margin-left: 10px !important;
+}
+
+.clear_btn {
+	height: 40px;
+	float: right;
 }
 </style>
 
