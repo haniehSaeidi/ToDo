@@ -11,7 +11,7 @@ import { taskList, STORAGE_TODO, STORAGE_DATE, STORAGE_DONE } from "../main.js";
  
 export default {
     name: 'Delete',
-    props: ['indexOfremove'],
+    props: ['indexOfremove', 'deletedTask'],
     data() {
         return {
             //
@@ -19,10 +19,10 @@ export default {
     },
     methods: {
         removeTask(index) {
-            window["taskList"].splice(index, 1);
+            this.deletedTask.splice(index, 1);
             this.$emit('removeTask')
 
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(window["taskList"]));
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.deletedTask));
         },
     },
 

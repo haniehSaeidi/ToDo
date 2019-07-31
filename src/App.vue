@@ -1,21 +1,21 @@
 <template>
 	<v-app>
 		<v-content>
-			<Test></Test>
+			<Task></Task>
 		</v-content>
 	</v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
-import Test from './components/Test'
+import Task from './components/Task'
 
 
 export default {
 	name: 'App',
 	components: {
 		HelloWorld,
-		Test: Test,
+		Task: Task,
 	},
 	data () {
 		return {

@@ -12,7 +12,7 @@ import  {eventBus} from '../main'
 
 export default {
     name: 'Edit',
-    props: ['todoEdit', 'indexxx'],
+    props: ['todoEdit', 'indexxx', 'editedTask'],
     data() {
         return {
             
@@ -25,7 +25,7 @@ export default {
             eventBus.$emit('editTask', todo.title)
             eventBus.$emit('editDate', todo.date)
 
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(window["taskList"]));
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.editedTask));
         },
        
     }

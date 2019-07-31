@@ -6,12 +6,12 @@
             </div>
             <div class="text_feild_div">
                 <v-flex xs12 sm12 md12>
-                    <v-text-field label="Name" outline v-model="myNewTask" ></v-text-field>
+                    <v-text-field label="To Do ..." outline v-model="myNewTask" ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm12 md12>
                     <v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent lazy full-width width="290px">
                         <template v-slot:activator="{ on }">
-                            <v-text-field v-model="date" label="Date" prepend-icon="event" readonly v-on="on">
+                            <v-text-field v-model="date" label="Date ..." prepend-icon="event" readonly v-on="on">
                             </v-text-field>
                         </template>
                         <v-date-picker v-model="date" scrollable>
@@ -34,7 +34,7 @@ import {eventBus} from '../main'
 
 export default {
     name: 'Add',
-    props: ['indexOfUpdate'],
+    props: ['indexOfUpdate', 'addedTask'],
     data() {
         return {
             myNewTask: '',
@@ -51,6 +51,7 @@ export default {
                     date: this.date,
                     done: false
                 }
+                // this.addedTask.push(task)
                 this.$emit('newTask', task)
                 this.myNewTask = "";
                 this.date = "";
@@ -59,16 +60,16 @@ export default {
                 this.$toastr.error('Please fill all the fields ...', 'Error');
             }
 
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(window['taskList']))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.addedTask))
         },
         update(index) {
             this.isEdited = false;
-            window['taskList'][this.indexOfUpdate].title = this.myNewTask;
-            window['taskList'][this.indexOfUpdate].date = this.date;
+            this.addedTask[this.indexOfUpdate].title = this.myNewTask;
+            this.addedTask[this.indexOfUpdate].date = this.date;
             this.myNewTask = "";
             this.date = "";
 
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(window['taskList']))
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.addedTask))
         },
         
     },
