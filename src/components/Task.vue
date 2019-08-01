@@ -1,26 +1,25 @@
 <template>
   	<div class="mb-30">
+		
     	<Add @newTask="createnew" 
 			 :indexOfUpdate="indexOfEdit"
 			 :addedTask="newTask"></Add>
 
-		<div class="task_div header">
-			<h3>To Do List</h3>
-		</div>
 		<div class="search_div">
-			<v-layout row wrap>
-					<v-flex xs12 sm12 md6>
-						<v-text-field class="search_input" outline v-model="search" placeholder="Search Todo"></v-text-field>
-					</v-flex>
-					<v-flex xs12 sm12 md6 mt-10>
-						<v-btn float color="red" class="clear_btn" @click="clearCompleted" dark>
-							<v-icon>done</v-icon>Clear done
-						</v-btn>
-						<v-btn float color="red" class="clear_btn" @click="clearAll" dark>
-							<v-icon>delete</v-icon>Clear All
-						</v-btn>
-					</v-flex>
+			<v-layout wrap>
+				<v-flex>
+					<v-text-field class="search_input" v-model="search" placeholder="Search ToDo"></v-text-field>
+				</v-flex>
+				<v-flex mt-10>
+					<v-btn class="clear_btn" @click="clearCompleted" dark outline  color="pink">
+						<v-icon class="delete_icon">delete</v-icon>  done
+					</v-btn>
+					<v-btn class="clear_btn" @click="clearAll" dark outline  color="pink">
+						<v-icon class="delete_icon">delete</v-icon>  All
+					</v-btn>
+				</v-flex>
 			</v-layout>
+			
 		</div>
 		<div class="list_div" v-if="newTask.length < 1">
 			<v-layout row wrap>
@@ -74,7 +73,7 @@ export default {
     },
     data() {
         return {
-            nodata: "No To Do",
+            nodata: "No ToDo",
             editedTodo: null,
             search: "",
             newTask: [],
@@ -82,14 +81,12 @@ export default {
         };
     },
     mounted() {
-		// localStorage.clear()
         const todos = JSON.parse(localStorage.getItem(STORAGE_TODO) || "[]");
         this.newTask = todos;
     },
     methods: {
         createnew(task) {
 			this.newTask.push(task)
-			console.log(this.newTask)
         },
         updateIndex(index) {
             this.indexOfEdit = index;
@@ -109,7 +106,6 @@ export default {
             });
         },
         clearAll() {
-			console.log(this.newTask)
 			this.newTask = [];
 			localStorage.setItem(STORAGE_TODO, JSON.stringify(this.newTask));
         },
@@ -126,11 +122,12 @@ export default {
 
 <style>
 .task_div {
-	border: 2px solid#92C8C0;
-	width: 70%;
+	width: 40%;
 	margin: auto;
+	padding: 20px;
 	margin-top: 20px;
-	box-shadow: 3px 3px 3px #aaaaaa;
+	box-shadow:  3px 3px 5px 2px #d8d5d5;
+	margin-bottom: 50px;
 }
 
 .header {
@@ -144,15 +141,25 @@ export default {
 }
 
 .text_feild_div {
-  margin: 20px;
+  	margin: 20px;
+}
+
+.add_form {
+	position: relative;
+}
+
+.add_btn_div {
+	z-index: 10;
+	position: absolute;
+	left: 47%;
+	margin-top: 7px;
 }
 
 .list_div {
-  border: 2px solid#92C8C0;
-  width: 70%;
+  width: 40%;
   margin: auto;
   margin-top: 5px;
-  box-shadow: 3px 3px 3px #aaaaaa;
+  box-shadow:  3px 3px 5px 2px #d8d5d5;
   padding: 15px;
   height: 70px;
   min-height: 70px;
@@ -197,8 +204,7 @@ export default {
 }
 
 .search_div {
-	border: 2px solid #92C8C0;
-	width: 70%;
+	width: 40%;
 	margin: auto;
 	background: #EFF7F5;
 	height: 50px;
@@ -207,7 +213,7 @@ export default {
 	vertical-align: middle;
 	line-height: 45px;
 	margin-top: 5px;
-	box-shadow: 3px 3px 3px #aaaaaa;
+	box-shadow:  3px 3px 5px 2px #d8d5d5;
 	height: auto;
 }
 .width-40 {
@@ -219,7 +225,6 @@ export default {
 }
 
 .search_input {
-	width: 300px;
     height: 65px;
     margin-top: 5px !important;
     margin-left: 10px !important;
@@ -228,10 +233,18 @@ export default {
 .clear_btn {
 	height: 40px;
 	float: right;
+	font-size: 12px;
+	border-radius: 20px !important;
 }
 
 .mb-30 {
 	margin-bottom: 30px;
+}
+
+.delete_icon {
+	font-size: 19px !important;
+    margin-right: 5px;
+    margin-top: -6px;
 }
 
 </style>

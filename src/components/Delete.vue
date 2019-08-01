@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn outline flat icon color="red" @click.prevent="removeTask(indexOfremove)">
+        <v-btn @click.prevent="removeTask(indexOfremove)" fab dark small outline color="pink">
             <v-icon>delete</v-icon>
         </v-btn>
     </div>

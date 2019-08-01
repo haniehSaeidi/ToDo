@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn outline flat icon color="purple" @click="editTodo(todoEdit, indexxx)">
+        <v-btn class="ml-5" @click="editTodo(todoEdit, indexxx)" fab dark outline small color="cyan">
             <v-icon>edit</v-icon>
         </v-btn>
     </div>
@@ -31,4 +31,10 @@ export default {
     }
 }
 </script>
+<style>
+.ml-5 {
+    margin-left: 5px !important;
+}
+</style>
+
 
