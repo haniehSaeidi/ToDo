@@ -19,9 +19,9 @@ export default {
     },
     methods: {
         removeTask(index) {
+            this.deletedTask.index-=1;
             this.deletedTask.splice(index, 1);
             this.$emit('removeTask')
-
             localStorage.setItem(STORAGE_TODO, JSON.stringify(this.deletedTask));
         },
     },

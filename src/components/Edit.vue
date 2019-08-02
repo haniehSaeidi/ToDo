@@ -15,7 +15,6 @@ export default {
     props: ['todoEdit', 'indexxx', 'editedTask'],
     data() {
         return {
-            
         }
     },
     methods: {

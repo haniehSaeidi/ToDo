@@ -47,6 +47,7 @@ export default {
             modal: false,
             isEdited:false,
             dialog: false,
+            index: 0
         }
     },
     methods: {
@@ -55,9 +56,10 @@ export default {
                 let task = {
                     title: this.myNewTask,
                     date: this.date,
-                    done: false
+                    done: false,
+                    index: this.index
                 }
-                // this.addedTask.push(task)
+                this.index+=1;
                 this.$emit('newTask', task)
                 this.myNewTask = "";
                 this.date = "";

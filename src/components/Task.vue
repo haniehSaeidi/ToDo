@@ -49,8 +49,9 @@
 							  :editedTask="newTask"></Edit>
 					</v-flex>
 					<v-flex md1 text-right>
-						<Delete :indexOfremove="index"
-								:deletedTask="newTask"></Delete>
+						<Delete :indexOfremove="todo.index"
+								:deletedTask="newTask"
+								></Delete>
 					</v-flex>
 				</v-layout>
 			</div>
@@ -81,8 +82,9 @@ export default {
         };
     },
     mounted() {
+		// localStorage.clear()
         const todos = JSON.parse(localStorage.getItem(STORAGE_TODO) || "[]");
-        this.newTask = todos;
+		this.newTask = todos;
     },
     methods: {
         createnew(task) {
@@ -93,7 +95,7 @@ export default {
         },
         completeTask() {
             localStorage.setItem(STORAGE_TODO, JSON.stringify(this.newTask));
-        },
+		},
         clearCompleted() {
             var dontCompleted = [];
             return this.newTask.filter(todo => {
