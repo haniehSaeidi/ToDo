@@ -18,7 +18,7 @@ export default {
         }
     },
     methods: {
-        removeTask(item) {
+        removeTask() {
             let index = this.tasks.map(item => item.index).indexOf(this.indexOfremove)
             this.tasks.splice(index, 1);
             localStorage.setItem(STORAGE_TODO, JSON.stringify(this.tasks));

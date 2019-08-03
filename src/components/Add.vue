@@ -34,12 +34,12 @@
 </template>
 
 <script>
-import {taskList, STORAGE_TODO, STORAGE_DATE, STORAGE_DONE} from '../main.js'
+import {taskList, STORAGE_TODO, STORAGE_DATE, STORAGE_DONE, STORAGE_INDEX} from '../main.js'
 import {eventBus} from '../main'
 
 export default {
     name: 'Add',
-    props: ['indexOfUpdate', 'addedTask', 'tasks'],
+    props: ['indexOfUpdate', 'addedTask'],
     data() {
         return {
             myNewTask: '',
@@ -47,7 +47,7 @@ export default {
             modal: false,
             isEdited:false,
             dialog: false,
-            index: 0
+            index: [0]
         }
     },
     methods: {
@@ -59,7 +59,6 @@ export default {
                     done: false,
                     index: this.index
                 }
-                console.log(task)
                 this.index+=1;
                 this.$emit('newTask', task)
                 this.myNewTask = "";
@@ -70,8 +69,9 @@ export default {
             }
 
             localStorage.setItem(STORAGE_TODO, JSON.stringify(this.addedTask))
+            localStorage.setItem(STORAGE_INDEX, JSON.stringify(this.index))
         },
-        update(item) {
+        update(index) {
             this.isEdited = false;
             this.addedTask[this.indexOfUpdate].title = this.myNewTask;
             this.addedTask[this.indexOfUpdate].date = this.date;
@@ -83,6 +83,9 @@ export default {
         
     },
     created(){
+        const index = JSON.parse(localStorage.getItem(STORAGE_INDEX) || "[]");
+        this.index = index;
+        
         eventBus.$on('edit',(edit)=>{
             this.isEdited = edit
         })

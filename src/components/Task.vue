@@ -43,16 +43,15 @@
 					<v-flex pt-10 md4 :class="{ completed: todo.done }">{{ todo.date }}</v-flex>
 					<v-flex md1 text-right>
 						<Edit :index="index" 
-							  @indexOfEdit="updateIndex(index)" 
-							  :indexxx="indexOfEdit" 
-							  :todoEdit="todo"
+							  @indexOfEdit="updateIndex(todo, index)" 
+							  :editIndex="indexOfEdit" 
+							  :tasks="todo"
 							  :editedTask="newTask"
-							  :tasks="newTask"></Edit>
+							  ></Edit>
 					</v-flex>
 					<v-flex md1 text-right>
 						<Delete :indexOfremove="todo.index"
 								:tasks="newTask"
-								:element="index"
 								></Delete>
 					</v-flex>
 				</v-layout>
@@ -84,7 +83,6 @@ export default {
         };
     },
     mounted() {
-		// localStorage.clear()
         const todos = JSON.parse(localStorage.getItem(STORAGE_TODO) || "[]");
 		this.newTask = todos;
     },
@@ -92,8 +90,9 @@ export default {
         createnew(task) {
 			this.newTask.push(task)
         },
-        updateIndex(index) {
-            this.indexOfEdit = index;
+        updateIndex(todo) {
+			let index = this.newTask.map(item => item.index).indexOf(todo.index)
+			this.indexOfEdit = index
         },
         completeTask() {
             localStorage.setItem(STORAGE_TODO, JSON.stringify(this.newTask));

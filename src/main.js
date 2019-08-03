@@ -10,6 +10,7 @@ import 'vue-toastr-2/dist/vue-toastr-2.min.css'
 export const STORAGE_TODO = 'todo-storage';
 export const STORAGE_DATE = 'date-storage';
 export const STORAGE_DONE = 'done-storage';
+export const STORAGE_INDEX = 'index-storage';
 export const eventBus = new Vue();
 
 window.toastr = require('toastr')

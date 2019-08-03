@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn class="ml-5" @click="editTodo(todoEdit, indexxx)" fab dark outline small color="cyan">
+        <v-btn class="ml-5" @click="editTodo(tasks, editIndex)" fab dark outline small color="cyan">
             <v-icon>edit</v-icon>
         </v-btn>
     </div>
@@ -12,7 +12,7 @@ import  {eventBus} from '../main'
 
 export default {
     name: 'Edit',
-    props: ['todoEdit', 'indexxx', 'editedTask'],
+    props: ['tasks', 'editIndex', 'editedTask'],
     data() {
         return {
         }
