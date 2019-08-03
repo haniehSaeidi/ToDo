@@ -1,29 +1,12 @@
-# todo
+(this is my first Vue.Js try) 
 
-## Project setup
-```
-npm install
-```
+Welcome to TODO app
+you can manage your daily tasks with it. 
+you can add your task, edit, deleted, search and also finaly make them as done! 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Technologies:
+-Vue.js
+-vuetify.js
+-LocalStorage
+-NPM
+-ES6
