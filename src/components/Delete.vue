@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn @click.prevent="removeTask(indexOfremove)" fab dark small outline color="pink">
+        <v-btn @click.prevent="removeTask()" fab dark small outline color="pink">
             <v-icon>delete</v-icon>
         </v-btn>
     </div>
@@ -11,18 +11,17 @@ import { taskList, STORAGE_TODO, STORAGE_DATE, STORAGE_DONE } from "../main.js";
  
 export default {
     name: 'Delete',
-    props: ['indexOfremove', 'deletedTask'],
+    props: ['indexOfremove', 'tasks'],
     data() {
         return {
             //
         }
     },
     methods: {
-        removeTask(index) {
-            this.deletedTask.index-=1;
-            this.deletedTask.splice(index, 1);
-            this.$emit('removeTask')
-            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.deletedTask));
+        removeTask(item) {
+            let index = this.tasks.map(item => item.index).indexOf(this.indexOfremove)
+            this.tasks.splice(index, 1);
+            localStorage.setItem(STORAGE_TODO, JSON.stringify(this.tasks));
         },
     },
 

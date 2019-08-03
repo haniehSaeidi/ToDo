@@ -46,11 +46,13 @@
 							  @indexOfEdit="updateIndex(index)" 
 							  :indexxx="indexOfEdit" 
 							  :todoEdit="todo"
-							  :editedTask="newTask"></Edit>
+							  :editedTask="newTask"
+							  :tasks="newTask"></Edit>
 					</v-flex>
 					<v-flex md1 text-right>
 						<Delete :indexOfremove="todo.index"
-								:deletedTask="newTask"
+								:tasks="newTask"
+								:element="index"
 								></Delete>
 					</v-flex>
 				</v-layout>

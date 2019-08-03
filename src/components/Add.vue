@@ -39,7 +39,7 @@ import {eventBus} from '../main'
 
 export default {
     name: 'Add',
-    props: ['indexOfUpdate', 'addedTask'],
+    props: ['indexOfUpdate', 'addedTask', 'tasks'],
     data() {
         return {
             myNewTask: '',
@@ -59,6 +59,7 @@ export default {
                     done: false,
                     index: this.index
                 }
+                console.log(task)
                 this.index+=1;
                 this.$emit('newTask', task)
                 this.myNewTask = "";
@@ -70,7 +71,7 @@ export default {
 
             localStorage.setItem(STORAGE_TODO, JSON.stringify(this.addedTask))
         },
-        update(index) {
+        update(item) {
             this.isEdited = false;
             this.addedTask[this.indexOfUpdate].title = this.myNewTask;
             this.addedTask[this.indexOfUpdate].date = this.date;
