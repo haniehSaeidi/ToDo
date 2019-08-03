@@ -1,9 +1,0 @@
-body {
-    background: yellowgreen;
-}
-
-/* localStorage.setItem(STORAGE_KEY, JSON.stringify(this.todos));
-
-created() {
-    this.todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-}, */

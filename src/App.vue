@@ -7,14 +7,12 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 import Task from './components/Task'
 
 
 export default {
 	name: 'App',
 	components: {
-		HelloWorld,
 		Task: Task,
 	},
 	data () {
