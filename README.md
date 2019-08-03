@@ -5,6 +5,8 @@ you can manage your daily tasks with it.
 you can add your task, edit, deleted, search and also finaly make them as done! 
 
 Technologies:
+
+
 -Vue.js (v2.6.10)
 
 -vuetify.js (v1.5.5)
